@@ -1,0 +1,93 @@
+#include <iostream>
+#include <conio.h>
+#include <stdlib.h>
+#include <cstdlib>
+#include <ctime>
+#define key_x 88
+using namespace std;
+bool GameOver = false;
+
+
+// function to undertake all the game proecessing
+
+void Display() {
+    int choose;
+    char ch;
+    system("color 04");
+    cout << "WELCOME" << endl;
+    for (int i = 1; i < 5; i++) {
+        cout << "Character " << i << endl;
+    }
+    cout << "choose character number: ";
+    cin >> choose;
+
+
+    if (choose > 4) {
+        cout << "Enter valid character number: ";
+        cin >> choose;
+
+    }
+    cout << "Selected Character is " << choose << endl;
+    system("pause");
+    system("cls");
+
+    srand((unsigned)time(0));
+    int random = (rand() % 4) + 1;
+    system("color 02");
+    cout << "ENEMY IS CHARACTER " << random << endl;
+
+    int hp1 = 100;
+    int hp2 = 100;
+
+    cout << "Character " << choose << "(health " << hp1 << ")" << " VS. Character " << random << "(health " << hp2 << ")" << endl << endl;
+
+
+    while (!GameOver)
+    {
+        srand(time(0));
+        int rand1 = (rand() % 100) + 1;
+        int rand2 = (rand() % 100) + 1;
+
+        int NewHp1 = hp1 - rand1;
+        int NewHp2 = hp2 - rand2;
+
+
+        cout << "Press any key to attack" << endl << endl;
+
+        ch = (_getch());
+        int value = ch;
+        while (value == key_x)
+            break;
+
+        cout << "Enemy has " << NewHp2 << " health left." << endl << endl;
+
+        system("pause");
+
+        cout << "You have " << NewHp1 << " health left." << endl << endl;
+
+        if (NewHp2 <= 0) {
+            cout << "YOU WIN!!" << endl;
+            GameOver = true;
+        }
+
+        else if (NewHp1 <= 0) {
+            system("color 04");
+            cout << "YOU LOSE" << endl;
+            GameOver = true;
+        }
+            hp1 = NewHp1;
+            hp2 = NewHp2;
+    }
+
+
+
+}
+
+// main function to display output as long as GameOver is false
+
+
+int main() {
+    while (!GameOver)
+        Display();
+
+}
